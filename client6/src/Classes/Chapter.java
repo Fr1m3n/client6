@@ -5,6 +5,7 @@ import Exceptions.FieldException;
 import java.io.Serializable;
 
 public class Chapter implements Serializable {
+    private static final long serialVersionUID = 32L;
     private String name; //Поле не может быть null, Строка не может быть пустой
     private String parentLegion;
     private String world; //Поле может быть null

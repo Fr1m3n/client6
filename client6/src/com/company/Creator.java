@@ -24,7 +24,7 @@ public class Creator {
 
     private static Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private static String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
+    private static Coordinates coordinates; //Поле не может быть null
     private static long health; //Значение поля должно быть больше 0
     private static Integer heartCount; //Поле не может быть null, Значение поля должно быть больше 0, Максимальное значение поля: 3
     private static int height;
@@ -48,15 +48,13 @@ public class Creator {
         public static void setName() {
             Scanner names = new Scanner(System.in);
             name = names.nextLine();
-
-
             try {
-                Double d1 = new Double(name);
+                new Double(name);
                 System.out.println("Мы все понимаем, но даже название корабля не может состоять лишь из цифр! Попробуйте еще раз");
                 setName();
             } catch (NumberFormatException e) {
                 if (name.length() >= 1) {
-                    name = name;
+                    return;
                 } else {
                     System.out.println("Пустое название? Переосмыслите свои убеждения и придумайте название корабля!");
                     setName();
@@ -68,7 +66,6 @@ public class Creator {
         public static void setX() {
             Scanner scanner = new Scanner(System.in);
             String corX = scanner.nextLine();
-
             try {
                 Long d = Long.parseLong(corX);
                 if (d > -538) {
@@ -86,8 +83,6 @@ public class Creator {
         public static void setY() {
         Scanner scanner = new Scanner(System.in);
             String corY = scanner.nextLine();
-
-
             try {
                 Integer s = Integer.parseInt(corY);
                 y = s;
@@ -95,6 +90,7 @@ public class Creator {
                 System.out.println("Мы принимаем только ЦИФРЫ и ЕМАЕ давай без пустых полей ладно?");
                 setY();
             }
+            coordinates = new Coordinates(x, y);
         }
 
         public static void setHealth() {
@@ -157,24 +153,25 @@ public class Creator {
 
         public static void setChapter() {
             System.out.println("Вы уже ввели имя " + name + "           ");
-            System.out.println("           Будь как лекции по матеше и не используй только цифры"); // На лекции по матеше щас и цифр уже не встретишь((
+            System.out.println("           Будь как лекции по матеше и НЕ используй только цифры"); // На лекции по матеше щас и цифр уже не встретишь((
             System.out.println("Значение parentLegion");
             Scanner parentLegions = new Scanner(System.in);
-            parentLegion = parentLegions.nextLine();
-
-            System.out.println("Значение world");
-            Scanner worlds = new Scanner(System.in);
-            world = worlds.nextLine();
-
-
             try {
-                Double l1 = new Double(parentLegion);
-                Double w1 = new Double(world);
-            } catch (NumberFormatException | NullPointerException e) {
-                System.out.println("Мы принимаем только ЦИФРЫ и ЕМАЕ давай без пустых полей ладно?");
-                    setChapter();
-                }
+                parentLegion = parentLegions.nextLine();
+                System.out.println("Значение world");
+            } catch (NullPointerException ex) {
+                System.out.println("Пустое название? Нет!");
+                setChapter();
             }
+            try {
+                Scanner worlds = new Scanner(System.in);
+                world = worlds.nextLine();
+            } catch (NullPointerException ex) {
+                System.out.println("Пустое название? Нет!");
+                setChapter();
+            }
+           chapter = new Chapter(name, parentLegion, world);
+        }
 
         public Coordinates getCoordinates() {
         if (coordinates == null) throw new FieldException();

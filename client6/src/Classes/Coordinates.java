@@ -5,6 +5,7 @@ import Exceptions.FieldException;
 import java.io.Serializable;
 
 public class Coordinates implements Serializable {
+    private static final long serialVersionUID = 32L;
     private long x; //Значение поля должно быть больше -538
     private int y;
 
@@ -14,7 +15,7 @@ public class Coordinates implements Serializable {
     }
 
     public long getX() {
-        if (x<-538) throw new FieldException();
+        if (x < -538) throw new FieldException();
         else return x;
     }
 
