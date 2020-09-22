@@ -1,5 +1,7 @@
 package com.company;
 
+import Classes.User;
+
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -14,11 +16,11 @@ public class CommandInvoker {
         commandMap.put(commandName, command);
     }
 
-    public void executeCommand(String[] commandName) {
+    public void executeCommand(String[] commandName, User user) {
         try {
             if (commandName.length > 0 && !commandName[0].equals("")) {
                 Command command = commandMap.get(commandName[0]);
-                command.execute(commandName);
+                command.execute(commandName, user);
             } else { System.out.println("Вы не ввели команду."); }
         } catch (NullPointerException ex) {
             System.out.println("Не существует команды " + commandName[0] + ". Воспользуйтесь help");

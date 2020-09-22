@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 import Classes.SpaceMarine;
+import Classes.User;
 import Client.ClientSender;
 import Client.Receiver;
 import Commands.*;
@@ -36,20 +37,20 @@ public class CommandReciever {
         commandInvoker.getCommandMap().forEach((name,command) -> command.writeInfo());
     }
 
-    public void info() throws IOException, ClassNotFoundException, InterruptedException {
-        sender.toSend(new SerializedSimplyCommand(new Info()));
+    public void info(User user) throws IOException, ClassNotFoundException, InterruptedException {
+        sender.toSend(new SerializedSimplyCommand(new Info(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
-    public void show() throws IOException, ClassNotFoundException, InterruptedException {
-        sender.toSend(new SerializedSimplyCommand(new Show()));
+    public void show(User user) throws IOException, ClassNotFoundException, InterruptedException {
+        sender.toSend(new SerializedSimplyCommand(new Show(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
-    public void add() throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedObjectCommand(new Add(), Creator.SpaceMarineCreator()));
+    public void add(User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedObjectCommand(new Add(), Creator.SpaceMarineCreator(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
@@ -58,14 +59,14 @@ public class CommandReciever {
      *
      * @param ID - удаление по ID.
      */
-    public void removeById(String ID) throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedArgumentCommand(new RemoveByID(), ID));
+    public void removeById(String ID, User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedArgumentCommand(new RemoveByID(), ID, user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
-    public void clear() throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedSimplyCommand(new Clear()));
+    public void clear(User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedSimplyCommand(new Clear(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
@@ -80,7 +81,7 @@ public class CommandReciever {
      * @param path путь до файла
      */
 
-    public void ExcecuteScript(String path) {
+    public void ExcecuteScript(String path, User user) {
         String line;
         String command;
         ArrayList<String> field = new ArrayList<>();
@@ -100,12 +101,12 @@ public class CommandReciever {
                     SpaceMarine spaceMarine = Creator.ScriptFromJsonToCollection(field);
                     switch (command.split(" ")[0]) {
                         case "add":
-                            sender.toSend(new SerializedObjectCommand(new Add(), spaceMarine));
+                            sender.toSend(new SerializedObjectCommand(new Add(), spaceMarine, user));
                             Thread.sleep(delay);
                             Receiver.receive(socketChannel);
                             break;
                         case "update":
-                            sender.toSend(new SerializedCombinedCommand(new Update(), creator.SpaceMarineCreator(), command.split(" ")[1]));
+                            sender.toSend(new SerializedCombinedCommand(new Update(), Creator.SpaceMarineCreator(), command.split(" ")[1], user));
                             Thread.sleep(delay);
                             Receiver.receive(socketChannel);
                             break;
@@ -114,7 +115,7 @@ public class CommandReciever {
                 {
                     System.out.println("Упс, рекурсия");
                 } else {
-                    commandInvoker.executeCommand(line.split(" "));
+                    commandInvoker.executeCommand(line.split(" "), user);
                 }
             }
         } catch (IOException | ClassNotFoundException | InterruptedException e) {
@@ -126,22 +127,25 @@ public class CommandReciever {
     SIMPLY COMMAND?
      */
 
-    public void removeLast() throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedSimplyCommand(new removeLast()));
+    public void removeLast(User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedSimplyCommand(new removeLast(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
-    public void descendingHeight() throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedSimplyCommand(new DescendingHeight()));
+    public void descendingHeight(User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedSimplyCommand(new DescendingHeight(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
-    public void ascendingHeight() throws IOException, InterruptedException, ClassNotFoundException {
-        sender.toSend(new SerializedSimplyCommand(new AscendingHeight()));
+    public void ascendingHeight(User user) throws IOException, InterruptedException, ClassNotFoundException {
+        sender.toSend(new SerializedSimplyCommand(new AscendingHeight(), user));
         Thread.sleep(delay);
         Receiver.receive(socketChannel);
     }
 
+    public void register(User user) throws IOException {
+        sender.toSend(new SerializedObjectCommand(new Register(), user, user));
+    }
 }

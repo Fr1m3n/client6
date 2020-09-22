@@ -1,5 +1,7 @@
 package com.company;
 
+import Classes.User;
+
 import java.io.IOException;
 
 public class Info extends Command {
@@ -13,11 +15,11 @@ public class Info extends Command {
     public Info() {}
 
     @Override
-    protected void execute(String[] args) throws IOException, ClassNotFoundException, InterruptedException  {
+    protected void execute(String[] args, User user) throws IOException, ClassNotFoundException, InterruptedException  {
         if (args.length > 1) {
             System.out.println("Что-то пошло не так");
         }
-        commandReciever.info();
+        commandReciever.info(user);
     }
 
     @Override

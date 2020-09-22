@@ -1,5 +1,6 @@
 package Commands;
 
+import Classes.User;
 import com.company.Command;
 import com.company.CommandReciever;
 
@@ -15,7 +16,7 @@ public class Help extends Command {
     public Help() {}
 
     @Override
-    protected void execute(String[] args) throws IOException {
+    protected void execute(String[] args, User user) throws IOException {
         if (args.length > 1) {
             System.out.println("Опаньки! Что-то пошло не так");
         }

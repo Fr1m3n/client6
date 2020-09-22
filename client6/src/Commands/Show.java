@@ -1,5 +1,6 @@
 package Commands;
 
+import Classes.User;
 import com.company.Command;
 import com.company.CommandReciever;
 
@@ -16,11 +17,11 @@ public class Show extends Command {
     public Show() {}
 
     @Override
-    protected void execute(String[] args) throws IOException, InterruptedException, ClassNotFoundException {
+    protected void execute(String[] args, User user) throws IOException, InterruptedException, ClassNotFoundException {
         if (args.length > 1) {
             System.out.println("Опаньки! Что-то пошло не так");
         }
-        commandReciever.show();
+        commandReciever.show(user);
     }
 
     @Override

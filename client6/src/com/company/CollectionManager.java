@@ -50,7 +50,7 @@ public class CollectionManager {
     }
 
     public static void addFromJson(SpaceMarine spaceMarine) {
-        spaceMarine.setID(spaceMarine.getID());
+        spaceMarine.setID(spaceMarine.getId());
         collection.add(spaceMarine);
     }
 
@@ -81,7 +81,7 @@ public class CollectionManager {
     public static void remove_by_id(Integer marineID) {
         SpaceMarine sp=null;
         for(SpaceMarine s:collection){
-            if(s.getID().equals(marineID)){
+            if(s.getId().equals(marineID)){
                 sp=s;
                 break;
             }
@@ -115,9 +115,9 @@ public class CollectionManager {
 
     public static void update(SpaceMarine spaceMarine, Integer marineID) {
         for (SpaceMarine SpaceMarineUpdate  : collection) {
-            if (spaceMarine.getID().equals(marineID)) {
+            if (spaceMarine.getId().equals(marineID)) {
                 spaceMarine.setName(SpaceMarineUpdate.getNames());
-                spaceMarine.setID(SpaceMarineUpdate.getID());
+                spaceMarine.setID(SpaceMarineUpdate.getId());
                 spaceMarine.setChapter(SpaceMarineUpdate.getChapter());
                 spaceMarine.setMeleeWeapon(SpaceMarineUpdate.getMeleeWeapon());
                 spaceMarine.setHeartCount(SpaceMarineUpdate.getHeartCount());

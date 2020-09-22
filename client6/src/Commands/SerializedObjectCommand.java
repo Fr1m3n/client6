@@ -1,5 +1,6 @@
 package Commands;
 
+import Classes.User;
 import com.company.Command;
 
 import java.io.Serializable;
@@ -8,10 +9,12 @@ public class SerializedObjectCommand implements Serializable {
 
     private Command command;
     private Object object;
+    private User user;
 
-    public SerializedObjectCommand(Command command, Object object) {
+    public SerializedObjectCommand(Command command, Object object, User user) {
         this.command = command;
         this.object = object;
+        this.user = user;
     }
 
     public Command getCommand() {
@@ -20,5 +23,9 @@ public class SerializedObjectCommand implements Serializable {
 
     public Object getObject() {
         return object;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

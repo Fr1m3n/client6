@@ -15,8 +15,17 @@ public class SpaceMarine implements Serializable {
     private int height;
     private MeleeWeapon meleeWeapon; //Поле не может быть null
     private Chapter chapter; //Поле не может быть null
+    private User user;
 
-    public SpaceMarine(Integer id, String name, Coordinates coordinates, Date creationDate, long health, Integer heartCount, int height, MeleeWeapon meleeWeapon, Chapter chapter) {
+    public SpaceMarine(Integer id,
+                       String name,
+                       Coordinates coordinates,
+                       Date creationDate,
+                       long health,
+                       Integer heartCount,
+                       int height,
+                       MeleeWeapon meleeWeapon,
+                       Chapter chapter) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -28,8 +37,7 @@ public class SpaceMarine implements Serializable {
         this.chapter = chapter;
     }
 
-    public Integer getID() {
-            return id;
+    public SpaceMarine() {
     }
 
     public Coordinates getCoordinates() {
@@ -81,6 +89,29 @@ public class SpaceMarine implements Serializable {
         else throw new FieldException();
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -114,5 +145,4 @@ public class SpaceMarine implements Serializable {
         this.health = health;
     }
 }
-
 

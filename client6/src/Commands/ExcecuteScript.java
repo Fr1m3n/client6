@@ -1,5 +1,6 @@
 package Commands;
 
+import Classes.User;
 import com.company.Command;
 import com.company.CommandReciever;
 
@@ -16,9 +17,9 @@ public class ExcecuteScript extends Command {
     public ExcecuteScript() {}
 
     @Override
-    protected void execute(String[] args) throws StackOverflowError, IOException {
+    protected void execute(String[] args, User user) throws StackOverflowError, IOException {
         try {
-            if (args.length == 2) { path = args[1]; commandReciever.ExcecuteScript(args[1]); }
+            if (args.length == 2) { path = args[1]; commandReciever.ExcecuteScript(args[1], user); }
             else { System.out.println("Некорректное количество аргументов. Для справки напишите help."); }
         } catch (StackOverflowError ex) {
             System.out.println("Ошибка! Обнаружен выход за пределы стека");

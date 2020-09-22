@@ -1,5 +1,6 @@
 package Commands;
 
+import Classes.User;
 import com.company.Command;
 import com.company.CommandReciever;
 
@@ -16,11 +17,11 @@ public class AscendingHeight extends Command {
     public AscendingHeight() {}
 
     @Override
-    protected void execute(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
+    protected void execute(String[] args, User user) throws IOException, ClassNotFoundException, InterruptedException {
         if (args.length > 1) {
             System.out.println("Опаньки! Что-то пошло не так");
         }
-        commandReciever.ascendingHeight();
+        commandReciever.ascendingHeight(user);
     }
 
     @Override
